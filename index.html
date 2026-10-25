@@ -1,0 +1,49 @@
+
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jarvis AI</title>
+<style>
+body{margin:0;background:#07111f;color:#eaf6ff;font-family:Arial,sans-serif;display:flex;justify-content:center;min-height:100vh}
+main{width:100%;max-width:480px;padding:24px;box-sizing:border-box}
+h1{color:#42d9ff;text-align:center;margin-top:50px}
+p{text-align:center;color:#9db7ce}
+#chat{height:55vh;overflow:auto;border:1px solid #21445c;border-radius:16px;padding:12px;margin:22px 0}
+.msg{background:#12283b;padding:12px;border-radius:12px;margin:10px 0;white-space:pre-wrap}
+input{box-sizing:border-box;width:100%;padding:15px;border-radius:12px;border:1px solid #42d9ff;background:#0c1d2d;color:white;font-size:16px}
+button{padding:13px;border:0;border-radius:10px;background:#16b9e8;color:#03111d;font-weight:bold;font-size:16px}
+.actions{display:flex;gap:8px;margin-top:10px}
+.actions button{flex:1}
+</style>
+</head>
+<body>
+<main>
+<h1>JARVIS AI</h1>
+<p>आपका पर्सनल असिस्टेंट</p>
+<div id="chat"><div class="msg">नमस्ते! मैं Jarvis हूँ। नीचे अपना संदेश लिखें।</div></div>
+<input id="message" placeholder="Jarvis से कुछ पूछें..." />
+<div class="actions">
+<button onclick="send()">भेजें</button>
+<button onclick="listen()">🎙️ बोलें</button>
+</div>
+</main>
+<script>
+const chat=document.getElementById('chat');
+function add(text){const d=document.createElement('div');d.className='msg';d.textContent=text;chat.appendChild(d);chat.scrollTop=chat.scrollHeight;}
+function send(){
+ const i=document.getElementById('message');
+ const q=i.value.trim();if(!q)return;
+ add('आप: '+q);i.value='';
+ add('Jarvis: आपका संदेश मिल गया। AI जवाब देने की सुविधा जोड़ने के लिए सुरक्षित AI backend कनेक्ट करना होगा।');
+}
+function listen(){
+ const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+ if(!SR){add('इस ब्राउज़र में आवाज़ पहचान उपलब्ध नहीं है। Chrome में आज़माएँ।');return;}
+ const r=new SR();r.lang='hi-IN';r.onresult=e=>{document.getElementById('message').value=e.results[0][0].transcript;};r.start();
+}
+</script>
+</body>
+</html>
+  
